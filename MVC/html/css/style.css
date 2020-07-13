@@ -1052,7 +1052,8 @@ label {
 }
 
 .navbar-top-links>li {
-    float: left
+    float: left;
+    text-align: center;
 }
 
 .navbar-top-links>li>a {
@@ -12017,4 +12018,7 @@ ul.pro-amenities li span i {
 }
 #showrow{
     display: none;
+}
+.navbar-right{
+    color: white;
 }

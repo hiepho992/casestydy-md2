@@ -21,7 +21,8 @@ class TypeproductModel{
         $statement = $this->connection->prepare($sql);
         $statement->execute();
 
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+       return $statement->fetchAll(PDO::FETCH_ASSOC);
+        
 
     }
 
@@ -32,5 +33,10 @@ class TypeproductModel{
         $statement = $this->connection->prepare($sql);
         $statement->execute();
     }
+
+    // public function selectProduct($id){
+
+    //     $sql = 
+    // }
 
 }

@@ -4,7 +4,6 @@ class BaseController
 {
     const VIEW_FOLDER_NAME = 'views';
     const MODEL_FOLDER_NAME = 'models';
-
     protected function view($path, $data = [])
     {
         extract($data);
@@ -16,4 +15,6 @@ class BaseController
 
         return require(self::MODEL_FOLDER_NAME . '/' . $modelPath . '.php');
     }
+
+  
 }

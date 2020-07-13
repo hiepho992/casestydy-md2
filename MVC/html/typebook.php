@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../models/TypeproductModel.php";
 require_once "../models/DBconnection.php";
 $typeproductModel = new TypeproductModel(DBconnection::make());
@@ -73,7 +74,11 @@ $result = $typeproductModel->selectAll();
                             <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
                     </li>
                     <li>
-                        <a class="profile-pic" href="#"> <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b></a>
+                        <?php if (isset($_SESSION['user'])) : ?>
+                            <?= 'xin chào ' . $_SESSION['user']['user_name'] ?><?= '<a href="../index.php?controller=User&action=logout">LOG OUT </a>' ?>
+                        <?php else : ?>
+                            <?= '<a href="./index.php?controller=User&action=index">LOG IN</a>' ?>
+                        <?php endif; ?>
                     </li>
                 </ul>
             </div>
@@ -155,7 +160,7 @@ $result = $typeproductModel->selectAll();
                                                 <td><?= $val['idtypeofbook'] ?></td>
                                                 <td><?= $val['typeofbook_name'] ?></td>
                                                 <td>
-                                                    <a href="../index.php?controller=Typeproduct&action=delete&id=<?=$val['idtypeofbook']?>"><i class="fas fa-trash-alt"></i></a> |
+                                                    <a href="../index.php?controller=Typeproduct&action=delete&id=<?= $val['idtypeofbook'] ?>"><i class="fas fa-trash-alt"></i></a> |
                                                     <a href="#"><i class="fas fa-edit"></i></a>
                                                 </td>
 
@@ -207,7 +212,7 @@ $result = $typeproductModel->selectAll();
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
     <script src="https://kit.fontawesome.com/91752fb16b.js" crossorigin="anonymous"></script>
-   
+
 </body>
 
 </html>

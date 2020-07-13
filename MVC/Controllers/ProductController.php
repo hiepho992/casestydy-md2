@@ -24,6 +24,8 @@ class ProductController extends BaseController
          'productNews' => $productNews
       ]);
    }
+
+  
    public function search()
    {
       if ($_SERVER['REQUEST_METHOD'] === "GET") {
@@ -58,14 +60,14 @@ class ProductController extends BaseController
    public function add(){
       if($_SERVER["REQUEST_METHOD"] === "POST"){
          $name = $_POST['name'];
-         $price = (int)$_POST['price'];
+         $price = $_POST['price'];
          $author = $_POST['author'];
          $producter = $_POST['producter'];
-         $page = (int) $_POST['page'];
+         $page = $_POST['page'];
          $year = $_POST['year'];
          $info = $_POST['info'];
          $image = "images/".$_POST['image'];         
-         $qty = (int)$_POST['qty'];
+         $qty = $_POST['qty'];
          $type = $_POST['type'];
 
 
@@ -76,4 +78,6 @@ class ProductController extends BaseController
                                            
       }
    }
+
+
 }

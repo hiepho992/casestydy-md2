@@ -9,10 +9,22 @@ class ProductModel
     }
 
     public function create($name, $price, $author, $producter, $page, $year, $info, $image, $qty, $type)
-    {
-        $sql = " INSERT INTO products('name', 'price', 'author', 'producter', 'page', 'year', 'info', 'image', 'qty', 'type')
+    {   
+        $sql = "INSERT INTO `buybooks`.`book`
+        (
+        `book_name`,
+        `book_price`,
+        `book_author`,
+        `book_product`,
+        `book_page`,
+        `book_year`,
+        `book_info`,
+        `book_image`,
+        `book_quantity`,
+        `typeofbook_idtypeofbook`)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $statement = $this->connection->prepare($sql);
+        
         $statement->bindParam(1, $name);
         $statement->bindParam(2, $price);
         $statement->bindParam(3, $author);
@@ -23,8 +35,9 @@ class ProductModel
         $statement->bindParam(8, $image);
         $statement->bindParam(9, $qty);
         $statement->bindParam(10, $type);
-
+     
         return $statement->execute();
+        
     }
 
     public function isHot()
@@ -91,5 +104,15 @@ class ProductModel
         WHERE idbooks = '$id'";
         $statement = $this->connection->prepare($sql);
         $statement->execute();
+    }
+    public function typeProduct($id){
+        $sql = "SELECT *
+        FROM book
+        inner JOIN typeofbook
+        ON book.typeofbook_idtypeofbook = typeofbook.idtypeofbook
+        WHERE typeofbook_idtypeofbook = '$id';";
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }

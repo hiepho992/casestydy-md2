@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../models/ProductModel.php";
 require_once "../models/DBconnection.php";
 $productModel = new ProductModel(DBconnection::make());
@@ -73,7 +74,11 @@ $result = $productModel->selectAll();
                             <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
                     </li>
                     <li>
-                        <a class="profile-pic" href="#"> <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b></a>
+                        <?php if (isset($_SESSION['user'])) : ?>
+                            <?= 'xin chào ' . $_SESSION['user']['user_name'] ?><?= '<a href="../index.php?controller=User&action=logout">LOG OUT </a>' ?>
+                        <?php else : ?>
+                            <?= '<a href="./index.php?controller=User&action=index">LOG IN</a>' ?>
+                        <?php endif; ?>
                     </li>
                 </ul>
             </div>
@@ -172,7 +177,7 @@ $result = $productModel->selectAll();
                                                     <img src="<?= "../" . $val['book_image'] ?>" alt="" srcset="">
                                                 </td>
                                                 <td>
-                                                    <a href="./index.php?controller=Cart&action=delete&id=<?= $val['idbooks']; ?>"><i class="fas fa-trash-alt"></i></a> |
+                                                    <a href="../index.php?controller=Product&action=deleteProduct&id=<?= $val['idbooks']; ?>"><i class="fas fa-trash-alt"></i></a> |
                                                     <a href="#"><i class="fas fa-edit"></i></a>
                                                 </td>
                                             </tr>
@@ -221,7 +226,7 @@ $result = $productModel->selectAll();
                                                 <td><input type="text" name="author" id=""></td>
                                                 <td><input type="text" name="producter" id=""></td>
                                                 <td><input type="number" name="page" id=""></td>
-                                                <td><input type="date" name="year" id=""></td>
+                                                <td><input type="text" name="year" id=""></td>
                                                 <td><input type="text" name="info" id=""></td>
                                                 <td><input type="file" name="image" id=""></td>
                                                 <td><input type="number" name="qty" id=""></td>

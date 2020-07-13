@@ -7,12 +7,13 @@ class TypeproductController extends BaseController{
     public function __construct()
    {
       $this->load('TypeproductModel');
+      $this->load('ProductModel');
       $this->TypeproductModel = new TypeproductModel(DBconnection::make());
    }
     public function index(){
 
         $typeproducts = $this->TypeproductModel->selectAll();
-        return $this->view('page.header', ['typeproducts' => $typeproducts]);  
+        return $this->view('page.header', ['typeproducts' => $typeproducts]); 
     }
 
     public function add(){

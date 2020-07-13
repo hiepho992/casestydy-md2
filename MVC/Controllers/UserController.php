@@ -19,11 +19,12 @@ class UserController extends BaseController
         $user = new User(null, $_POST['email'], md5($_POST['password']));
         $result = $this->UserModel->login($user);
         if (count($result)) {
-            // session_start();
+           
             $_SESSION['user'] = $result[0];
             if($result[0]['isadmin'] == 1 ){
 
                 return header('location: ./html/dashboard.php');
+
             }else{
 
                 return header('location: ./index.php?controller=Product&action=index');

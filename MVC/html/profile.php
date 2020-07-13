@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../models/UserModel.php";
 require_once "../models/DBconnection.php";
 $UserModel = new UserModel(DBconnection::make());
@@ -56,32 +57,29 @@ $result = $UserModel->selectAll();
                     <!-- Logo -->
                     <a class="logo" href="dashboard.php">
                         <!-- Logo icon image, you can use font-icon also --><b>
-                            <!--This is dark logo icon--><img src="../plugins/images/admin-logo.png" alt="home"
-                                class="dark-logo" />
-                            <!--This is light logo icon--><img src="../plugins/images/admin-logo-dark.png" alt="home"
-                                class="light-logo" />
+                            <!--This is dark logo icon--><img src="../plugins/images/admin-logo.png" alt="home" class="dark-logo" />
+                            <!--This is light logo icon--><img src="../plugins/images/admin-logo-dark.png" alt="home" class="light-logo" />
                         </b>
                         <!-- Logo text image you can use text also --><span class="hidden-xs">
-                            <!--This is dark logo text--><img src="../plugins/images/admin-text.png" alt="home"
-                                class="dark-logo" />
-                            <!--This is light logo text--><img src="../plugins/images/admin-text-dark.png" alt="home"
-                                class="light-logo" />
+                            <!--This is dark logo text--><img src="../plugins/images/admin-text.png" alt="home" class="dark-logo" />
+                            <!--This is light logo text--><img src="../plugins/images/admin-text-dark.png" alt="home" class="light-logo" />
                         </span> </a>
                 </div>
                 <!-- /Logo -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li>
-                        <a class="nav-toggler open-close waves-effect waves-light hidden-md hidden-lg"
-                            href="javascript:void(0)"><i class="fa fa-bars"></i></a>
+                        <a class="nav-toggler open-close waves-effect waves-light hidden-md hidden-lg" href="javascript:void(0)"><i class="fa fa-bars"></i></a>
                     </li>
                     <li>
                         <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
-                            <input type="text" placeholder="Search..." class="form-control"> <a href=""><i
-                                    class="fa fa-search"></i></a> </form>
+                            <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
                     </li>
                     <li>
-                        <a class="profile-pic" href="#"> <img src="../plugins/images/users/varun.jpg" alt="user-img"
-                                width="36" class="img-circle"><b class="hidden-xs">Steave</b></a>
+                        <?php if (isset($_SESSION['user'])) : ?>
+                            <?= 'xin chào ' . $_SESSION['user']['user_name'] ?><?= '<a href="../index.php?controller=User&action=logout">LOG OUT </a>' ?>
+                        <?php else : ?>
+                            <?= '<a href="./index.php?controller=User&action=index">LOG IN</a>' ?>
+                        <?php endif; ?>
                     </li>
                 </ul>
             </div>
@@ -96,30 +94,25 @@ $result = $UserModel->selectAll();
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav slimscrollsidebar">
                 <div class="sidebar-head">
-                    <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span
-                            class="hide-menu">Navigation</span></h3>
+                    <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
                 </div>
                 <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;">
-                        <a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw"
-                                aria-hidden="true"></i>Dashboard</a>
+                        <a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="profile.php" class="waves-effect"><i class="fa fa-user fa-fw"
-                                aria-hidden="true"></i>Profile</a>
+                        <a href="profile.php" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a>
                     </li>
                     <li>
-                        <a href="Books.php" class="waves-effect"><i class="fa fa-table fa-fw"
-                                aria-hidden="true"></i>Books</a>
+                        <a href="Books.php" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Books</a>
                     </li>
                     <li>
                         <a href="typebook.php" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Type book</a>
                     </li>
-                   
+
                 </ul>
                 <div class="center p-20">
-                    <a href="https://wrappixel.com/templates/ampleadmin/" target="_blank"
-                        class="btn btn-danger btn-block waves-effect waves-light">Upgrade to Pro</a>
+                    <a href="https://wrappixel.com/templates/ampleadmin/" target="_blank" class="btn btn-danger btn-block waves-effect waves-light">Upgrade to Pro</a>
                 </div>
             </div>
         </div>
@@ -136,8 +129,7 @@ $result = $UserModel->selectAll();
                         <h4 class="page-title">Basic Table</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <a href="https://wrappixel.com/templates/ampleadmin/" target="_blank"
-                            class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Upgrade
+                        <a href="https://wrappixel.com/templates/ampleadmin/" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Upgrade
                             to Pro
 
                         </a>
@@ -153,7 +145,7 @@ $result = $UserModel->selectAll();
                     <div class="col-sm-12">
                         <div class="white-box">
                             <h3 class="box-title">Users table</h3>
-                           
+
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -166,16 +158,16 @@ $result = $UserModel->selectAll();
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = 0;?>
-                                       <?php foreach($result as $val):?>
-                                        <tr>
-                                            <td><?=$i++;?></td>
-                                            <td><?=$val['idusers'];?></td>
-                                            <td><?=$val['user_name'];?></td>
-                                            <td><?=$val['email'];?></td>
-                                            <td><?=$val['isadmin'];?></td>
-                                        </tr>
-                                        <?php endforeach;?>
+                                        <?php $i = 0; ?>
+                                        <?php foreach ($result as $val) : ?>
+                                            <tr>
+                                                <td><?= $i++; ?></td>
+                                                <td><?= $val['idusers']; ?></td>
+                                                <td><?= $val['user_name']; ?></td>
+                                                <td><?= $val['email']; ?></td>
+                                                <td><?= $val['isadmin']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
                                         <tr>
                                             <td colspan="5">
                                                 <a href="">ADD</a>

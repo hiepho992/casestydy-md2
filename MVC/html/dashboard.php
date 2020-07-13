@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../models/UserModel.php";
 require_once "../models/DBconnection.php";
 $UserModel = new UserModel(DBconnection::make());
@@ -76,7 +77,7 @@ $result = $UserModel->selectAll();
                             <img src="../plugins/images/admin-text.png" alt="home" class="dark-logo" />
                             <!--This is light logo text-->
                             <img src="../plugins/images/admin-text-dark.png" alt="home" class="light-logo" />
-                        </span> 
+                        </span>
                     </a>
                 </div>
                 <!-- /Logo -->
@@ -86,22 +87,19 @@ $result = $UserModel->selectAll();
                     </li>
                     <li>
                         <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
-                            <input type="text" placeholder="Search..." class="form-control"> 
+                            <input type="text" placeholder="Search..." class="form-control">
                             <a href="">
                                 <i class="fa fa-search"></i>
-                            </a> 
+                            </a>
                         </form>
                     </li>
                     <li>
-                    <!-- <?php var_dump($_SESSION['user']);?> -->
-                    <?php if (isset($_SESSION['user'])) : ?>
-                        
-                        <?= '<a href="./index.php?controller=User&action=logout"><i class="fas fa-user-check"></i> <i class="fas fa-sign-in-alt"></i></a>' ?>
-                    <?php else : ?>
-                        <?= '<a href="./index.php?controller=User&action=index">LOG IN</a>' ?>
-                    <?php endif; ?>
-
-                </li>
+                        <?php if (isset($_SESSION['user'])) : ?>
+                            <?= 'xin chào ' . $_SESSION['user']['user_name'] ?><?= '<a href="../index.php?controller=User&action=logout">LOG OUT </a>' ?>
+                        <?php else : ?>
+                            <?= '<a href="./index.php?controller=User&action=index">LOG IN</a>' ?>
+                        <?php endif; ?>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-header -->
@@ -129,15 +127,15 @@ $result = $UserModel->selectAll();
                     </li>
                     <li>
                         <a href="typebook.php" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Type book</a>
-                    </li>                  
-                 
-                  
+                    </li>
+
+
                 </ul>
                 <div class="center p-20">
-                     <a href="https://wrappixel.com/templates/ampleadmin/" target="_blank" class="btn btn-danger btn-block waves-effect waves-light">Upgrade to Pro</a>
-                 </div>
+                    <a href="https://wrappixel.com/templates/ampleadmin/" target="_blank" class="btn btn-danger btn-block waves-effect waves-light">Upgrade to Pro</a>
+                </div>
             </div>
-            
+
         </div>
         <!-- ============================================================== -->
         <!-- End Left Sidebar -->
@@ -149,7 +147,8 @@ $result = $UserModel->selectAll();
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Dashboard</h4> </div>
+                        <h4 class="page-title">Dashboard</h4>
+                    </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <a href="https://wrappixel.com/templates/ampleadmin/" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Upgrade to Pro</a>
                         <ol class="breadcrumb">
@@ -207,9 +206,11 @@ $result = $UserModel->selectAll();
                             <h3 class="box-title">Products Yearly Sales</h3>
                             <ul class="list-inline text-right">
                                 <li>
-                                    <h5><i class="fa fa-circle m-r-5 text-info"></i>Mac</h5> </li>
+                                    <h5><i class="fa fa-circle m-r-5 text-info"></i>Mac</h5>
+                                </li>
                                 <li>
-                                    <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Windows</h5> </li>
+                                    <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Windows</h5>
+                                </li>
                             </ul>
                             <div id="ct-visits" style="height: 405px;"></div>
                         </div>
@@ -218,7 +219,7 @@ $result = $UserModel->selectAll();
                 <!-- ============================================================== -->
                 <!-- table -->
                 <!-- ============================================================== -->
-            </div>    
+            </div>
             <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by wrappixel.com </footer>
         </div>
         <!-- ============================================================== -->
