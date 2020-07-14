@@ -10,7 +10,7 @@
 <body>   
     <h3 class="pro">Danh sách sản phẩm</h3>
     <div class="products">
-        <?php foreach ($result as $val) : ?>
+        <?php foreach ($results as $val) : ?>
 
             <div class="product-pro">
                 <a href="index.php?controller=product&action=detail&id=<?= $val["idbooks"] ?>"><img src="<?= "./" . $val["book_image"]; ?>" title="Kick ảnh xem chi tiết"></a>

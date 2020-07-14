@@ -79,5 +79,11 @@ class ProductController extends BaseController
       }
    }
 
+   public function listproduct(){
+      $id = isset($_GET['id']) ? $_GET['id'] : '';
+      $results = $this->productModel->typeProduct($id);
+      return $this->view('typeproducts.index', ['results' => $results]);
+   }
+
 
 }
